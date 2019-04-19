@@ -46,14 +46,17 @@
        master_log_file='主服务器的mysql-bin-log文件名称,如要在主服务器下执行show master status来获取',
        master_log_pos=如上，注意没有引号,结束加逗号
 ## 查看从服务器状态  
-    ```show  slave status\G;```
+    ```
+    show  slave status\G;
+    ```
     
     
 ##  其它的一些配置  
-    binlog_format=mixed  建议选则此种模式
-    log-bin=/data/mysql/mysql-bin.log binlog日志文件
-    expire_logs_days = 7 binlog过期清理时间  
-    max_binlog_size=100m binlog每个日志文件的大小
-    binlog_cache_size=4m binlog缓存的大小
-    max_binlog_cache_size=512m 最大缓存binlog的大小
++ **主服务器**  
+    binlog-do-db = 要备份的数据库,如果有多个数据库,另起一行,每个备份的数据库都要起一行.
+    binlog-ignore-db =忽略备份的数据库
++ **从服务器**  
+    replicate-do-db=要备份的数据库，如果有多个，则起多行
+    replicate-ignore-db=忽略备份的数据库
+    
 
