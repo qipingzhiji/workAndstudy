@@ -45,7 +45,7 @@
        master_password='密码',
        master_log_file='主服务器的mysql-bin-log文件名称,如要在主服务器下执行show master status来获取',
        master_log_pos=如上，注意没有引号,结束加逗号
-# 查看从服务器状态  
+## 查看从服务器状态  
     ```show  slave status\G;```
     
 
