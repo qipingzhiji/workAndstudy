@@ -49,7 +49,7 @@
     ```show  slave status\G;```
     
     
-##  其的一些配置  
+##  其它的一些配置  
     binlog_format=mixed  建议选则此种模式
     log-bin=/data/mysql/mysql-bin.log binlog日志文件
     expire_logs_days = 7 binlog过期清理时间  
