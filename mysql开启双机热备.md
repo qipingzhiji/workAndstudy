@@ -48,4 +48,12 @@
 ## 查看从服务器状态  
     ```show  slave status\G;```
     
+    
+##  其的一些配置  
+    binlog_format=mixed  建议选则此种模式
+    log-bin=/data/mysql/mysql-bin.log binlog日志文件
+    expire_logs_days = 7 binlog过期清理时间  
+    max_binlog_size=100m binlog每个日志文件的大小
+    binlog_cache_size=4m binlog缓存的大小
+    max_binlog_cache_size=512m 最大缓存binlog的大小
 
