@@ -27,10 +27,10 @@
 
 +  从服务器开启binlog  
          修改mysql的配置文件，添加如下：  
-         server-id = 服务器地址后一位（唯一标识，可不进行修改）
-         log-bin=mysql-bin(开启logbin)
-         binlog-do-db=test(要备份的数据库)
-         binlog-ignore-db= mysql(忽略的数据库）
+         server-id = 服务器地址后一位（唯一标识，可不进行修改）  
+         log-bin=mysql-bin(开启logbin)    
+         binlog-do-db=test(要备份的数据库)    
+         binlog-ignore-db= mysql(忽略的数据库）   
          
 + 重启mysql服务  
 
