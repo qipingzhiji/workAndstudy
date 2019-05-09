@@ -17,4 +17,5 @@
     netsh interface set interface wlan0 disabled
 + 启用有线网卡  
     netsh interface set interface wlan0 enabled
-
+## 打开计算机管理  
++ win+r compmgmt.msc
