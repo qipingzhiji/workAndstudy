@@ -18,7 +18,7 @@
         }
     }
 };
-```   
+
    发送请求如下：  
    ```
    this.axios.get('/apis/ithil_j/activity/movie_annual2017').then(res => {  
@@ -26,5 +26,5 @@
   }, res => {  
     console.info('调用失败');  
   })  
-  ```
+  ```  
 [文档参考csdn](https://blog.csdn.net/m0_37285193/article/details/83176597)  
