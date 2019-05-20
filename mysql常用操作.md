@@ -16,4 +16,8 @@ mysqldump -hlocalhost -uroot -proot 数据库名 表名>存储位置+文件名
 ## 表复制操作  
 + insert select  
   基本语法: Insert into Table2(field1,field2,…) select value1,value2,… from Table1 where condition;  
+## 同时更新两张表     
+  基本语法：update emp a,dept b set a.sal=a.sal=a.sal*b.deptno,b.deptname=a.ename where a.deptno = b.deptno;  
 
+## 同时删除两张表中的内容  
+  基本语法：delete a,b from emp a,dept b where a.deptno=b.deptno and a.deptno = 3;
