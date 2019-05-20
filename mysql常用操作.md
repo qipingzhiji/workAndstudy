@@ -13,7 +13,7 @@ mysqldump -hlocalhost -uroot -proot 数据库名 表名>存储位置+文件名
 + 查看当前哪些表被锁定  
   show open tables where in_use >0;  
   
-# 表复制操作  
+## 表复制操作  
 + insert select  
   基本语法: Insert into Table2(field1,field2,…) select value1,value2,… from Table1 where condition;  
 
