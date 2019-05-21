@@ -21,3 +21,5 @@ mysqldump -hlocalhost -uroot -proot 数据库名 表名>存储位置+文件名
 
 ## 同时删除两张表中的内容  
   基本语法：delete a,b from emp a,dept b where a.deptno=b.deptno and a.deptno = 3;
+## mysql优秀的第三方引擎  
+  tokudb存储引擎:适用于存储日志数据；历史数据。  
