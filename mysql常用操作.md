@@ -39,4 +39,7 @@ alter table table_name enable keys
 set unique_checks=0;  
 load data  
 set unique_checks=1;  
-
++ 关闭自动提交  
+set autocommit=0;  
+load data  
+set autocommit=1;  
