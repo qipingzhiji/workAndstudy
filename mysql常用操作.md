@@ -30,3 +30,8 @@ mysqldump -hlocalhost -uroot -proot 数据库名 表名>存储位置+文件名
   drop index index_name on table_name  
 + 查看索引的使用情况  
   show status like '%handler_read%';  其中handler_read_key的值越高越好，说明索引使用情况多;handler_read_rnd_next越高说明索引有问题。  
+## mysql基本优化  
++ 导入大量数据时可以先设置  
+alter table table_name disable keys   
+load data   
+alter table table_name enable keys   
