@@ -43,3 +43,5 @@ set unique_checks=1;
 set autocommit=0;  
 load data  
 set autocommit=1;  
++ mysql优化order by  
+优化filesort算法  适当增加max_length_for_sort_data 来使用一次扫描算法  
