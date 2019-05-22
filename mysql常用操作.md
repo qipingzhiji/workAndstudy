@@ -35,3 +35,8 @@ mysqldump -hlocalhost -uroot -proot 数据库名 表名>存储位置+文件名
 alter table table_name disable keys   
 load data   
 alter table table_name enable keys   
++ 关闭唯一性校验  
+set unique_checks=0;  
+load data  
+set unique_checks=1;  
+
