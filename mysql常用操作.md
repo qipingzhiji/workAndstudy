@@ -48,3 +48,10 @@ set autocommit=1;
 ## mysql优化数据库列  
 + procedure analyse()  
 例如： select * from table_name procedure annlyse();  
+## myisam存储引擎锁问题  
++ 不适用于更新插入频繁场景的原因  
+  写锁优先于读锁，即使读进程优先获得锁，写进程也会优先获得锁，这样就容易造成读进程出现延时。  
++ 更改写锁优先级方法  
+  1.启动时指定参数  low-priority-updates;  
+  2.set low_priority_updates=1;  
+  3.骑过指定insert,update,delete的低优先级,low_priority;  
