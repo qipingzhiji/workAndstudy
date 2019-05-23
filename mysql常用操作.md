@@ -56,3 +56,6 @@ set autocommit=1;
   2.set low_priority_updates=1;  
   3.通过指定insert,update,delete的低优先级,low_priority;  
   4.设置max_write_lock_count=100，当读进程到达100后，会自动降低写进程获得锁的优先级。  
+  ## mysql innodb存储引擎锁问题  
+  + 共享锁： 允许一个事务去读一行，阻止其它事务获取相同数据集的排他锁; 使用方法：select * from table_name where ... lock in share mode  
+  + 排他锁：允许获得排他锁的事务更新数据，阻止其它事务获取相同数据集的共享锁和排他锁；使用方法：select * from table_name where ... for update  
