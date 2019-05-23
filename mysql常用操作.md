@@ -54,4 +54,5 @@ set autocommit=1;
 + 更改写锁优先级方法  
   1.启动时指定参数  low-priority-updates;  
   2.set low_priority_updates=1;  
-  3.骑过指定insert,update,delete的低优先级,low_priority;  
+  3.通过指定insert,update,delete的低优先级,low_priority;  
+  4.设置max_write_lock_count=100，当读进程到达100后，会自动降低写进程获得锁的优先级。  
