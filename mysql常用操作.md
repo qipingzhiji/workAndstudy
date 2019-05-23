@@ -45,3 +45,6 @@ load data
 set autocommit=1;  
 + mysql优化order by  
 优化filesort算法  适当增加max_length_for_sort_data 来使用一次扫描算法  
+## mysql优化数据库列  
++ procedure analyse()  
+例如： select * from table_name procedure annlyse();  
