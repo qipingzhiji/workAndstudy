@@ -49,8 +49,8 @@
     ```
     show  slave status\G;
     ```
-    
-    
+## 查看binlog日志内容  
+**show binlog events in 'mysql-bin.0000001'**
 ##  其它的一些配置  
 + **主服务器**  
     binlog-do-db = 要备份的数据库,如果有多个数据库,另起一行,每个备份的数据库都要起一行.
