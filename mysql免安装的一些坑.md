@@ -65,4 +65,12 @@
 + 执行如下命令  
 	mysqld.exe install mysql(这里指的是mysql的服务名)  --defaults-file="D:\MySQL Data\MySQL Server 5.5\my.ini"（这里指的是mysql的配置文件地址）
 	查看mysql服务是否启动成功
-	netstat -ano|findstr 'mysql安装的端口号'
+	netstat -ano|findstr 'mysql安装的端口号
+
+## 在同一电脑上安装两个mysql服务  
+[参考网址](https://jingyan.baidu.com/article/72ee561a13bf95e16038df10.html)  
+
+1.数据库初始化  
+**mysqld --defaults-file=E:\tools\mysql5.7\my.ini --initialize --console**  
+2.安装成系统服务   
+**mysqld install MySQL3 --defaults-file="E:\tools\mysql5.7\my.ini"**  
