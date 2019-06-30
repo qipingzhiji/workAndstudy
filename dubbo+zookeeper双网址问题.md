@@ -22,7 +22,7 @@ nameserver 192.168.23.180
 消费者consumer.xml
 <dubbo:protocol host="192.168.23.180" />
 配置完了后在dubbo-admin控制台可以看到服务提供者注册到zookepper上的dobbo服务已经是正常的192.168.23.180。消费者显示的还是consumer://124.232.132.94/***** 但不影响调用。
-```  
+```
 3.方案  在服务器上/etc/hosts，上配置主机名和注册服务的IP。如：192.168.23.180 host2  
 ```
 没有配置之前ping 主机名host2 返回的是124.232.132.94
@@ -33,4 +33,4 @@ PING host2 (124.232.132.94) 56(84) bytes of data.
 ping host2
 PING host2 (192.168.23.180) 56(84) bytes of data.
 64 bytes from host2 (192.168.23.180): icmp_seq=1 ttl=64 time=0.024 ms
-``` 
+```
