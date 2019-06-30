@@ -51,5 +51,61 @@ upstream resinserver{
 
 ​		**nginx在修改完配置文件后，建议使用 nginx.exe -t  命令来检查一下配置文件是否存在语法错误**
 
+## nginx expires 缓存功能
 
+### 效果简介
+
+​	通过在nginx配置文件设置，告诉浏览器返回数据的有效时间，浏览器根据这个时间，确定是否继续向服务器发送数据请求。
+
+### 如何使用
+
+```nginx
+#这个设置是设置的对图片文件的处理
+location ~\.(jpeg|jpg|png)${
+    #缓存时间为一天
+    expires 1d;
+}
+```
+
+## nginx gzip 压缩功能
+
+### 效果简介
+
+​	压缩网络请求中的资源文件，占用带宽小，能够快速的访问到资源。
+
+### 如何进行配置
+
+```ng
+gzip on; #开启gzip
+gzip_http_version 1.0; #gzip支持的http协议版本
+gzip_disable 'MSIE[1-6]'; #不支持微软的ie1-6版本
+gzip_types image/jpeg; #对哪个类型的文件进行压缩
+```
+
+## nginx 负载均衡实现  
+
+### 效果简介
+
+### 参数说明
+
+1. weight:权重
+2. max_fails=*  :分发的最大的失败次数
+3. fail_timeout=20s  :失败的超时时间
+
+### session共享问题的解决
+
+存入数据库，使用memcache,mysql,redis
+
+硬盘共享方式，磁盘共享方式
+
+ip_hash hash一致性 让同一个用户访问同一台服务器，具体实现如下所示：
+
+```ngin
+upstream nginx{
+	#通过ip_hash可以实现同一个用户访问的是同一个web服务器，从而解决了session丢失问题
+	ip_hash;
+	server 192.168.73.130 weight=1 max_fails=3 fail_timeout=20s;
+	server 192.168.73.131 weight=2 max_fails=3 fail_timeout=20s;
+}
+```
 
