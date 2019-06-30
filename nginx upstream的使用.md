@@ -47,5 +47,9 @@ upstream resinserver{
     hash_method crc32;
 }
 
+ **特别注意:**
 
- 
+​		**nginx在修改完配置文件后，建议使用 nginx.exe -t  命令来检查一下配置文件是否存在语法错误**
+
+
+
