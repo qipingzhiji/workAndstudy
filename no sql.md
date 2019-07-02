@@ -19,3 +19,18 @@ memcache,redis,tair
    Noe4J,infoGrid
 
 4. KV键值：redis,memcache
+
+## NoSQL数据库的CAP原理+BASE
+
+### 传统的ACID是什么
+
+- Atomicity 原子性
+- Consistency 一致性
+- Isolation 独立性
+-  Durability 持久性
+
+### NoSQL中的CAP是什么
+
+- Consistency 强一致性
+- Avaliability 可用性
+- Partition tolerance 分区容错性
