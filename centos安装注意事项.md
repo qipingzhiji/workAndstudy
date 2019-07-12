@@ -16,7 +16,7 @@ mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 
 ​	可以从下面的网址下载阿里的数据源文件
 
-​    http://mirrors.aliyun.com/repo/Centos-7.repo
+​   http://mirrors.aliyun.com/repo/Centos-7.repo
 
 ### 生成缓存
 
