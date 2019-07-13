@@ -1,5 +1,3 @@
-
-
 # no sql
 
 当下互联网的需求：高并发，高性能，高可扩
@@ -1694,7 +1692,33 @@ Watch指令，类似乐观锁，事务提交时，如果key的值已被其它的
 
    可以使用jedis
 
-   ​		
+   #####  jedis中对连接池的配置
 
+   ​	JedisPool的配置参数大部分是由JedisPoolConfig的对应项来赋值的。
+   
+   ​	maxActive:控制一个pool可以分配多少个jedis实例，通过pool.getResource()来获取。如果赋值为-1，则表示不限制；
+   
+   ​    maxIdle:控制一个pool最多有多少个状态 为空闲的jedis实例。
+   
+   ​	WhenExhaustedAction:表示当pool中的jedis实例都被allocated完时，pool要采取的操作。
+   
+   ​		maxWait:表示当一个borrow一个jedis实例时，最大的等待时间。
+   
+   ​	testOnBorrow:获得一个jedis实例的时候是否检查连接的可用性；如果为true,则jedis的实例都是可用的。
+   
+   ​	testOnReturn:return一个jedis实例给pool时，是否检查可用性(ping);
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   ​		
+   
    
 
