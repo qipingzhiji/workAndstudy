@@ -58,9 +58,83 @@ private Map<String,String> maps;
 
 
 
+## springboot  日志框架配置
 
+```pro
+#表示在当前磁盘的根目录下创建spring文件夹和里面的log文件夹，使用spring.log作为默认的日志文件
+logging.path=/spring/log
+#在控制台输出的格式
+logging.pattern.console=%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n
+#指定文件中日志输出的格式
+logging.pattern.file=%d{yyyy-MM-dd} [%thread] %-5level - %logger{50} %msg%n
+```
 
+**如何自定义自己的日志配置： 只需要在类路径下放上日志框架的配置文件即可；springboot应用就不会在使用默认的配置了**
 
+| Logging system         | Customization                                                |
+| ---------------------- | ------------------------------------------------------------ |
+| Logback                | l**ogback-spring.xml**,**logback-spring.groovy**, or **logback.groovy** |
+| Log4j2                 | **log4j2-spring.xml** or **log4j2.xml**                      |
+| JDK(Java Util Logging) | logging.properties                                           |
 
+**logback.xml:** 直接就被日志框架识别了
 
+**logback-spring.xml:** 日志框架就不直接加载日志的配置项，由springboot
 
+```xml
+<springProfile name="staging">
+    <!-- configuration to be enabled when the "staging" profile is active -->
+</springProfile>
+```
+
+## spring boot 网站应用开发
+
+### 静态资源处理
+
+**在WebMvcAutoConfiguration类中有如下方法是对静态资源处理的**
+
+```java
+@Override
+		public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			if (!this.resourceProperties.isAddMappings()) {
+				logger.debug("Default resource handling disabled");
+				return;
+			}
+			Duration cachePeriod = this.resourceProperties.getCache().getPeriod();
+			CacheControl cacheControl = this.resourceProperties.getCache().getCachecontrol().toHttpCacheControl();
+			if (!registry.hasMappingForPattern("/webjars/**")) {
+				customizeResourceHandlerRegistration(registry.addResourceHandler("/webjars/**")
+						.addResourceLocations("classpath:/META-INF/resources/webjars/")
+						.setCachePeriod(getSeconds(cachePeriod)).setCacheControl(cacheControl));
+			}
+			String staticPathPattern = this.mvcProperties.getStaticPathPattern();
+			if (!registry.hasMappingForPattern(staticPathPattern)) {
+				customizeResourceHandlerRegistration(registry.addResourceHandler(staticPathPattern)
+						.addResourceLocations(getResourceLocations(this.resourceProperties.getStaticLocations()))
+						.setCachePeriod(getSeconds(cachePeriod)).setCacheControl(cacheControl));
+			}
+		}
+```
+
+```java
+private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
+			"classpath:/resources/", "classpath:/static/", "classpath:/public/" };
+```
+
+对静态资源的处理有如下两种方式：
+
+1. 对引入webjars静态资源的文件进行处理
+2. 对以下路径的资源进行处理
+   - classpath:/META-INF/resources/
+   - classpath:/resources/
+   - classpath:/static/
+   - classpath:/public/
+   - /:表示当前项目的根路径
+
+3. 欢迎页：在静态资源文件下所有inex.html页面 
+
+4. 所有的**/favicon.ico在上述的静态资源目录下面进行查找
+
+5. 自己进行指定静态资源目录
+
+   ​	配置spring.resources.static-locations属性
