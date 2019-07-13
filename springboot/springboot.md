@@ -50,4 +50,17 @@ private Map<String,String> maps;
 
 ​	**也可以通过spring.config.location来改变配置文件加载的位置** 
 
-**项目打包好以后，可以通过使用命令行的方式，启动 项目的时候指定配置文件的新位置；指定配置文件和默认加载的这些配置文件共同起作用形成互补配置**
+​	**项目打包好以后，可以通过使用命令行的方式，启动 项目的时候指定配置文件的新位置；指定配置文件和默认加载的这些配置文件共同起作用形成互补**
+
+## springboot 配置文件
+
+[springboot 配置文件属性一览](https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/#common-application-properties)
+
+
+
+
+
+
+
+
+
