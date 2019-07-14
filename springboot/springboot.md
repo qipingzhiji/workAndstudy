@@ -37,6 +37,61 @@ private List<String> list;
 private Map<String,String> maps;
 ```
 
+### @Configuration和@Bean注解的应用
+
+​	通过在一个类上标注@Configuration注解表明这个是springboot应用的配置类,在该类下的方法上标注@Bean属性给spring容器中添加相应的组件.如下：
+
+```java
+package com.redis.redis01.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.JedisPool;
+
+@Configuration
+public class JedisPoolConfig {
+
+    @Bean
+    public JedisPool jedisPool() {
+        redis.clients.jedis.JedisPoolConfig config = new redis.clients.jedis.JedisPoolConfig();
+        config.setMaxTotal(1000);
+        config.setMaxIdle(32);
+        config.setMaxWaitMillis(100*1000);
+        config.setTestOnBorrow(true);
+        JedisPool jedisPool = new JedisPool(config, "192.168.1.106", 6379);
+        return jedisPool;
+    }
+
+}
+```
+
+### @ConfigurationProperties、PropertySource、Component的使用
+
+通过在一个类上标注上述三个注解，可以从指定的配置文件中进行属性绑定并加载到spring容器中去，示例如下：
+
+```java
+package com.redis.redis01.entity;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+@Data
+@Component
+@PropertySource(value = {"classpath:address.properties"})
+@ConfigurationProperties(prefix = "address")
+public class Address {
+    private String country;
+    private String city;
+    private String street;
+    private String detail;
+}
+
+```
+
+
+
 ## 配置文件加载位置
 
 ​	springboot 启动会扫描以下位置的application.properties或者application.yml文件作为spring boot的默认配置文件
@@ -138,3 +193,40 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-
 5. 自己进行指定静态资源目录
 
    ​	配置spring.resources.static-locations属性
+
+### springboot 应用集成 Thymeleaf
+
+ 1. 引入依赖
+
+    ```xml
+    <dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    ```
+
+	2. Thymeleaf默认会去处理的路径
+
+    ```java
+    private static final Charset DEFAULT_ENCODING = StandardCharsets.UTF_8;
+    
+    public static final String DEFAULT_PREFIX = "classpath:/templates/";
+    
+    public static final String DEFAULT_SUFFIX = ".html";
+    ```
+
+	3. 在templates路径下创建后辍名为.html的页面
+
+    ```html
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+    </html>
+    ```
+
+    
+
+## spring boot 应用的扩展
+
+### 扩展springmvc
+
+​	**编写自定义的配置类（@Configuration）,继承自WebMvcConfigurer类，不能标注@EnableWebMvc**
