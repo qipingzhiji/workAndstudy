@@ -117,9 +117,18 @@
 
 ## association开启懒加载
 
+### 使用全局配置
+
 ```yml
 aggressive-lazy-loading: false  #如果开启的话，在加载数据的时候会一并加载暂时用不到的数据
 lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加载数据
+```
+
+### 在mapper文件中使用fetchType=lazy属性
+
+```xml
+<collection property="teachers" select="com.mybatis.demo.mapper.TeacherMapper.selectTeacherByDeptNum" 
+                    column="{deptNum=id}" fetchType="lazy">
 ```
 
 
@@ -141,5 +150,29 @@ lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加�
     <select id="selectDeptAndTeachers" resultMap="deptAndTeacherMap">
         select d.id,d.dept_name,t.id t_id,t.first_name,t.subject,t.deptNum from dept d
         left join teacher t on d.id = t.deptNum WHERE d.id = #{id,javaType=Integer,jdbcType=TINYINT}
+```
+
+## 关联查询，使用collection分步查询
+
+```xml
+<resultMap id="deptAndTeacherMapStep" type="dept">
+        <id column="id" property="id"></id>
+        <result column="dept_name" property="deptName"></result>
+        <collection property="teachers" select="com.mybatis.demo.mapper.TeacherMapper.selectTeacherByDeptNum" column="id" >
+
+        </collection>
+    </resultMap>
+
+    <select id="selectDeptAndTeachersStep" resultMap="deptAndTeacherMapStep">
+        select * from dept where id = #{id}
+    </select>
+```
+
+**如何传递在collection标签的select属性所指的方法中传递多个参数，可以使用如下的形式**
+
+{key1=value1,key2=value2}的形式
+
+```xml
+ <collection property="teachers" select="com.mybatis.demo.mapper.TeacherMapper.selectTeacherByDeptNum" column="{deptNum=id}" >
 ```
 
