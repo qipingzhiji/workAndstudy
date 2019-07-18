@@ -122,3 +122,24 @@ aggressive-lazy-loading: false  #如果开启的话，在加载数据的时候�
 lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加载数据
 ```
 
+
+
+## 关联查询，使用collection定义集合类型的处理
+
+```xml
+<resultMap id="deptAndTeacherMap" type="dept" >
+        <id column="id" property="id"></id>
+        <result column="dept_name" property="deptName"></result>
+        <collection property="teachers" ofType="teacher">
+            <id column="t_id" property="id"></id>
+            <result column="first_name" property="name"></result>
+            <result column="subject" property="subject"></result>
+            <result column="deptNum" property="deptNum"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectDeptAndTeachers" resultMap="deptAndTeacherMap">
+        select d.id,d.dept_name,t.id t_id,t.first_name,t.subject,t.deptNum from dept d
+        left join teacher t on d.id = t.deptNum WHERE d.id = #{id,javaType=Integer,jdbcType=TINYINT}
+```
+
