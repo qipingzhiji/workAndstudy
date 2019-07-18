@@ -41,3 +41,76 @@
    </select>
    ```
 
+## 获取自增主键的值 
+
+**在使用insert语句时需要获取自增主键的值，使用useGeneratedKeys="true" keyProperty="id"**
+
+```xml
+<insert id="insert" flushCache="false" useGeneratedKeys="true" keyProperty="id">
+      insert into employee(name,age,birth) VALUES (#{name},#{age},#{birth})
+</insert>
+```
+
+**对于不支持数据库自增属性的，可以使用<selectKey></selectKey>**
+
+```xml
+ <insert id="insert" flushCache="false" >
+      <selectKey order="BEFORE" keyProperty="id" >
+        select employee_seq.nextval from dual
+      </selectKey>
+      insert into employee(id, name,age,birth) VALUES (#{id},#{name},#{age},#			  {birth})
+  </insert>
+```
+
+## 级联(join)查询时自定义关联对象封闭规则
+
+**举例如下**
+
+```xml
+<resultMap id="teacherAndDeptResult" type="teacher" autoMapping="true">
+        <id column="id" property="id"></id>
+        <result column="first_name" property="name"></result>
+        <result column="subject" property="subject"></result>
+        <result column="b_id" property="dept.id"></result>
+        <result column="dept_name" property="dept.deptName"></result>
+    </resultMap>
+
+    <resultMap id="teacherAndDeptResult2" type="teacher" autoMapping="true">
+        <id column="id" property="id"></id>
+        <result column="first_name" property="name"></result>
+        <result column="subject" property="subject"></result>
+        <association property="dept" javaType="dept">
+            <id column="b_id" property="id"></id>
+            <result column="dept_name" property="deptName"></result>
+        </association>
+    </resultMap>
+<select id="selectTeacherAndDept" resultMap="teacherAndDeptResult">
+      select a.*,b.id b_id,b.dept_name dept_name from teacher a,dept b where        a.deptNum=b.id and b.id= #{id};
+</select>
+```
+
+**其中在teacherAndDeptResult2配置的时候，使用了association标签，其中的property指的是javabean中的属性，而javaType指的是javabean的全限定名，由于使用了@Alias(dept)，所以这里定义的是dept**
+
+## mybatis association 分步查询
+
+```xml
+<resultMap id="teacherAndDeptResultStep" type="teacher">
+        <id column="id" property="id"></id>
+        <result column="first_name" property="name"></result>
+        <result column="subject" property="subject"></result>
+        <result column="deptNum" property="deptNum"></result>
+        <association  property="dept" select="com.mybatis.demo.mapper.DeptMapper.selectDeptById"
+                      column="deptNum">
+        </association>
+    </resultMap>
+
+    <select id="selectTeacherAndDeptStep" resultMap="teacherAndDeptResultStep">
+        SELECT  * from teacher where id = #{id}
+    </select>
+```
+
+**property:指的是teacher这个bean的dept属性**
+
+**select:指的是调用com.mybatis.demo.mapper.DeptMapper.selectDeptById这个方法**
+
+**column:指的是在SELECT  * from teacher where id = #{id}查询出来的deptNum这个属性值，相当于方法的入参**
