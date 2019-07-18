@@ -114,3 +114,11 @@
 **select:指的是调用com.mybatis.demo.mapper.DeptMapper.selectDeptById这个方法**
 
 **column:指的是在SELECT  * from teacher where id = #{id}查询出来的deptNum这个属性值，相当于方法的入参**
+
+## association开启懒加载
+
+```yml
+aggressive-lazy-loading: false  #如果开启的话，在加载数据的时候会一并加载暂时用不到的数据
+lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加载数据
+```
+
