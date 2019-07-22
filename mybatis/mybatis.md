@@ -225,3 +225,15 @@ mybatis:
 
 **只有在sqlSession提交的时候一级缓存中的数据才会放入到二级缓存中去**
 
+## mybatis运行原理解析 
+
+	1. 根据配置文件（全局，sql映射）初始化Configuration对象
+ 	2. 创建一个DefaultSqlSession对象，里面包含Configuration及Executor（根据配置文件中的defaultExccutorType创建出对应的Executor,默认是simple）
+ 	3. DefaultSqlSession.getMapper();获取Mapper接口对应的MapperProxy对象
+ 	4. MapperProxy里面有DefaultSqlSession
+ 	5. 执行增删改查方法
+     1. 调用DefaultSqlSession的增删改查；
+     2. 会创建StatementHandler对象，同时创建ParameterHandler和ResultsetHandler对象
+     3. 调用StatementHandler预编译参数及设置参数值 
+     4. 调用StatementHandler的增删改查方法
+     5. 使用ResultHandler对象环境结果
