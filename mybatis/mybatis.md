@@ -176,3 +176,52 @@ lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加�
  <collection property="teachers" select="com.mybatis.demo.mapper.TeacherMapper.selectTeacherByDeptNum" column="{deptNum=id}" >
 ```
 
+## mybatis 缓存
+
+### 一级缓存失效问题
+
+​	一级缓存默认是开启的，对应一个sqlSession
+
+	1. sqlSession不同
+ 	2. sqlSession相同，查询条件不同（当前一级缓存中还没有这个数据）
+ 	3. sqlSession相同，两次查询之间执行了增删改操作
+ 	4. sqlSession相同，手动清除了一级缓存
+
+### 二级缓存
+
+​	**二级缓存是一个全局缓存，是基于namespace的缓存，一个namespace对应一个二级缓存**
+
+### 如何开启二级缓存
+
+```yaml
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.mybatis.demo.entity
+  configuration:
+    auto-mapping-behavior: full
+    map-underscore-to-camel-case: true
+    aggressive-lazy-loading: false
+    lazy-loading-enabled: true #开启懒加载，只有在使用的时候才会加载数据
+    cache-enabled: true #开启全局二级缓存配置
+```
+
+```xml
+<cache type="" blocking="" eviction="" flushInterval="" readOnly="" size="">
+        <!--
+         eviction:缓存回收策略：
+			LRU-最近最少使用，这是默认的回收策略
+			FIFO-先进先出
+			SOFT-软引用，移除基于垃圾回收器状态软引用规则的数据
+			WEAK-弱引用,移除基于垃圾回收器状态和弱引用规则的数据
+		flushInterval:缓存刷新时间间隔
+		readOnly:是否只读
+			-true：只读，直接将缓存中的数据交给用户，不安全
+			-false:默认是非只读的，会利用序列化和反序列化技术克隆一份新的数据交给用户
+		size：缓存中可以放多少元素
+		type=""：指定缓存的全类名，需要实现Cache接口
+        -->
+    </cache>
+```
+
+**只有在sqlSession提交的时候一级缓存中的数据才会放入到二级缓存中去**
+
