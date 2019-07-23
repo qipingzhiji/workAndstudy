@@ -237,3 +237,16 @@ mybatis:
      3. 调用StatementHandler预编译参数及设置参数值 
      4. 调用StatementHandler的增删改查方法
      5. 使用ResultHandler对象环境结果
+
+## mybatis 插件的编写
+
+对四大对象进行拦截
+
+1. 实现Interceptor
+2. 使用@Intercepts注解完成插件签名
+3. 将写好的插件注册到全局配置文件中
+
+## mybatis对分页插件的支持
+
+**使用pageHelper插件**
+
