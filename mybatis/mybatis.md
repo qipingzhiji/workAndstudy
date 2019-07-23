@@ -250,3 +250,18 @@ mybatis:
 
 **使用pageHelper插件**
 
+**springboot应用中对mybatis中batch的支持，可以通过如下方式来实现**
+
+```java
+@Configuration
+public class MybatisBatchSqlSession {
+    @Autowired
+    private SqlSessionFactory factory;
+
+    @Bean(name = "batchSession")
+    public SqlSession batchSqlSession() {
+        return new SqlSessionTemplate(factory, ExecutorType.BATCH);
+    }
+}
+```
+
