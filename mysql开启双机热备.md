@@ -4,7 +4,7 @@
     ```  
         create user 'replicate'@'%' identified by 'replicate';
         grant replication slave on *.* to 'replicate'@'%';
-    ```  
+    ```
 + mysql开启binlog    
      修改mysql的配置文件，添加如下：  
      server-id = 服务器地址后一位（唯一标识，可不进行修改）  
@@ -13,11 +13,12 @@
      binlog-ignore-db= mysql(忽略的数据库）  
 + 重启mysql服务  
   windows下可直接dos命令操作如下：
+  
   ```
       net stop mysql(服务名）
       net start mysql(服务名）
-  ```
-
+```
+  
 + 查看服务器状态  
   ```
     show master status;
@@ -31,13 +32,14 @@
          log-bin=mysql-bin(开启logbin)    
          replicate-do-db=test(要备份的数据库)    
          replicate-ignore-db= mysql(忽略的数据库）   
-         
+     
 + 重启mysql服务  
 
 + 开启slave线程
   1.stop slave  
   2.reset slave  
   3.root用户执行如下命令  
+  
     ```
      change master to
        master_host='主服务器ip',
@@ -45,7 +47,18 @@
        master_password='密码',
        master_log_file='主服务器的mysql-bin-log文件名称,如要在主服务器下执行show master status来获取',
        master_log_pos=如上，注意没有引号,结束加逗号
+    ```
+  
+  4.开启slave线程
+  
+   ```mysq
+  start slave
+   ```
+  
+  
+
 ## 查看从服务器状态  
+
     ```
     show  slave status\G;
     ```
