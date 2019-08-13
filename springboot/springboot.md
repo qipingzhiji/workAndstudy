@@ -230,3 +230,35 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-
 ### 扩展springmvc
 
 ​	**编写自定义的配置类（@Configuration）,继承自WebMvcConfigurer类，不能标注@EnableWebMvc**
+
+### springboot应用定制内置的tomcat容器
+
+1. 修改配置文件的方式来实现  
+
+       ```yaml
+   server:
+     port: 8080
+     #servlet:
+      # context-path: /demo
+       ```
+
+2. 将定制化的servlet容器注入到spring容器中去
+
+   ```java
+   @Configuration
+   public class ServletConfig {
+   
+       @Bean
+       public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer(){
+          return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
+              @Override
+              public void customize(ConfigurableWebServerFactory factory) {
+                  factory.setPort(8089);
+              }
+          };
+       }
+   }
+   ```
+
+   
+
