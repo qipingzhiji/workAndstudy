@@ -1,0 +1,1 @@
+ String gmtTime = LocalDateTime.now(ZoneId.of("GMT")).format(DateTimeFormatter.ofPattern("EEE,d MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH));
